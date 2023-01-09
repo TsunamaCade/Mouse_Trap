@@ -55,7 +55,7 @@ public class Cover : MonoBehaviour
 
     public void OnCover(InputAction.CallbackContext context)
     {
-        if(context.performed && canCover == true && isCovering == false)
+        if(context.performed && canCover == true && isCovering == false && hasCovered == false)
         {
             InvokeRepeating("TakeCover", 0, 0.01f);
         }
@@ -66,7 +66,7 @@ public class Cover : MonoBehaviour
     }
     public void OnExitCover(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if(context.performed && hasCovered == true)
         {
             canCover = true;
             isCovering = false;

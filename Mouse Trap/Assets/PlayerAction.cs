@@ -184,7 +184,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""d902e5d0-5210-479f-a5ea-95578bae2f0b"",
                     ""path"": ""<Gamepad>/leftStick/down"",
-                    ""interactions"": ""Hold(duration=0.75)"",
+                    ""interactions"": ""Hold(duration=0.5)"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""ExitCover"",
