@@ -1140,10 +1140,10 @@ Transform:
   - {fileID: 314595487}
   - {fileID: 1148894027}
   - {fileID: 1224262073}
-  - {fileID: 1388030014}
-  - {fileID: 1050916997}
   - {fileID: 1131484726}
   - {fileID: 1919387348}
+  - {fileID: 1388030014}
+  - {fileID: 1050916997}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1293,38 +1293,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: cc953ff2-9ea2-4948-981c-72a5bd351eb6
     m_ActionName: Player/Reload[/XInputControllerWindows/buttonWest,/Keyboard/r]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 709068631}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: OnMoveRight
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 3a27a628-b233-4746-8f4b-5b41f2a8c9bc
-    m_ActionName: Player/MoveLeft[/XInputControllerWindows/leftStick/left,/Keyboard/a]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 709068631}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: OnMoveRight
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: a5f3e949-593d-4f0b-ad0c-3066edae4638
-    m_ActionName: Player/MoveRight[/XInputControllerWindows/leftStick/right,/Keyboard/d]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2054,7 +2022,7 @@ Transform:
   m_Children:
   - {fileID: 8644670820709329134}
   m_Father: {fileID: 709068630}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1050916998
 MonoBehaviour:
@@ -2077,6 +2045,9 @@ MonoBehaviour:
   reloadTime: 4
   isReloading: 0
   maxSpread: 0.1
+  cam: {fileID: 963194228}
+  gun: {fileID: 1050916997}
+  damping: 1
   gunBarrel: {fileID: 1865080053}
   enemyMask:
     serializedVersion: 2
@@ -2571,7 +2542,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1119737635}
-  m_LocalRotation: {x: 0.11485545, y: -0.000000017618557, z: 0.0000000020370685, w: 0.9933822}
+  m_LocalRotation: {x: 0.11485545, y: 0.00000001761856, z: -0.000000002037069, w: 0.9933822}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2609,7 +2580,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 709068630}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1148894026
 GameObject:
@@ -3169,7 +3140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1388030014
 Transform:
   m_ObjectHideFlags: 0
@@ -3177,7 +3148,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388030013}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.681, y: 0.878, z: 0.61849976}
   m_LocalScale: {x: 15, y: 2.4, z: 2.4}
   m_ConstrainProportionsScale: 0
@@ -3185,7 +3156,7 @@ Transform:
   - {fileID: 4104204533647410365}
   - {fileID: 1170974275}
   m_Father: {fileID: 709068630}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1388030015
 MonoBehaviour:
@@ -3208,6 +3179,9 @@ MonoBehaviour:
   reloadTime: 4
   isReloading: 0
   maxSpread: 0.025
+  cam: {fileID: 963194228}
+  gun: {fileID: 1388030014}
+  damping: 1
   gunBarrel: {fileID: 1170974275}
   enemyMask:
     serializedVersion: 2
@@ -4149,7 +4123,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 709068630}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1947668888
 GameObject:

@@ -20,6 +20,11 @@ public class PlayerGun : MonoBehaviour
     [Header("Bullet Spread")]
     [SerializeField] private float maxSpread;
 
+    [Header("Gun Rotation")]
+    [SerializeField] private Transform cam;
+    [SerializeField] private Transform gun;
+    [SerializeField] private float damping;
+
     [Header("Misc")]
     [SerializeField] private Transform gunBarrel;
     [SerializeField] private LayerMask enemyMask;
@@ -27,6 +32,7 @@ public class PlayerGun : MonoBehaviour
 
     void Update()
     {
+        gun.transform.localEulerAngles = new Vector3(cam.rotation.x * 180f, 0f, 0f);
         if(currentAmmo <= 0f)
         {
             canShoot = false;
