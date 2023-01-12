@@ -73,12 +73,30 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Fire"",
+                    ""name"": ""FireAuto"",
                     ""type"": ""Button"",
                     ""id"": ""6cafe1a0-2dfa-4ff5-bb77-708edce6c4d9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=1.401298E-45)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FireSemi"",
+                    ""type"": ""Button"",
+                    ""id"": ""f8f5bf33-1f4d-43ca-88b4-58cba9332138"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""cc953ff2-9ea2-4948-981c-72a5bd351eb6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -165,7 +183,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""Fire"",
+                    ""action"": ""FireAuto"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -176,7 +194,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Fire"",
+                    ""action"": ""FireAuto"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -311,6 +329,50 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69628c4c-88fb-4b32-a699-24936dc8d4ba"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""FireSemi"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3bd433ce-e516-40ec-8571-1ae1c02bc69d"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""FireSemi"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f5c5955-294c-44f9-af4f-3c160c4fa94e"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fabd05d4-e717-4e20-9056-f0d29dd6d1ec"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -385,7 +447,9 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_Cover = m_Player.FindAction("Cover", throwIfNotFound: true);
         m_Player_ExitCover = m_Player.FindAction("ExitCover", throwIfNotFound: true);
-        m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+        m_Player_FireAuto = m_Player.FindAction("FireAuto", throwIfNotFound: true);
+        m_Player_FireSemi = m_Player.FindAction("FireSemi", throwIfNotFound: true);
+        m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
     }
 
@@ -451,7 +515,9 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_Cover;
     private readonly InputAction m_Player_ExitCover;
-    private readonly InputAction m_Player_Fire;
+    private readonly InputAction m_Player_FireAuto;
+    private readonly InputAction m_Player_FireSemi;
+    private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_Aim;
     public struct PlayerActions
     {
@@ -462,7 +528,9 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @Cover => m_Wrapper.m_Player_Cover;
         public InputAction @ExitCover => m_Wrapper.m_Player_ExitCover;
-        public InputAction @Fire => m_Wrapper.m_Player_Fire;
+        public InputAction @FireAuto => m_Wrapper.m_Player_FireAuto;
+        public InputAction @FireSemi => m_Wrapper.m_Player_FireSemi;
+        public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -488,9 +556,15 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 @ExitCover.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExitCover;
                 @ExitCover.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExitCover;
                 @ExitCover.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExitCover;
-                @Fire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
-                @Fire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
-                @Fire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
+                @FireAuto.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireAuto;
+                @FireAuto.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireAuto;
+                @FireAuto.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireAuto;
+                @FireSemi.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireSemi;
+                @FireSemi.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireSemi;
+                @FireSemi.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFireSemi;
+                @Reload.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
                 @Aim.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAim;
                 @Aim.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAim;
                 @Aim.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAim;
@@ -513,9 +587,15 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 @ExitCover.started += instance.OnExitCover;
                 @ExitCover.performed += instance.OnExitCover;
                 @ExitCover.canceled += instance.OnExitCover;
-                @Fire.started += instance.OnFire;
-                @Fire.performed += instance.OnFire;
-                @Fire.canceled += instance.OnFire;
+                @FireAuto.started += instance.OnFireAuto;
+                @FireAuto.performed += instance.OnFireAuto;
+                @FireAuto.canceled += instance.OnFireAuto;
+                @FireSemi.started += instance.OnFireSemi;
+                @FireSemi.performed += instance.OnFireSemi;
+                @FireSemi.canceled += instance.OnFireSemi;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
@@ -575,7 +655,9 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         void OnRun(InputAction.CallbackContext context);
         void OnCover(InputAction.CallbackContext context);
         void OnExitCover(InputAction.CallbackContext context);
-        void OnFire(InputAction.CallbackContext context);
+        void OnFireAuto(InputAction.CallbackContext context);
+        void OnFireSemi(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
     }
 }

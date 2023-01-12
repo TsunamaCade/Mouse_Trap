@@ -6,6 +6,11 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private Vector2 move;
+
+    private Vector2 moveLeft;
+    private bool canMoveLeft;
+    private Vector2 moveRight;
+    private bool canMoveRight;
     private Vector2 look;
 
 
@@ -23,6 +28,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Cover Variables")]
     public bool covered;
+    [SerializeField] private Transform leftCoverDetect;
+    [SerializeField] private Transform rightCoverDetect;
+    [SerializeField] private float coverDetectDistance;
+    [SerializeField] private LayerMask coverMask;
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -81,10 +90,46 @@ public class PlayerMovement : MonoBehaviour
         {
             float coverWalkSpeed = 3f;
             Vector3 direction = transform.TransformDirection(new Vector3(move.x, 0f, 0f));
+            Vector3 directionLeft = transform.TransformDirection(new Vector3(-1, 0f, 0f));
+            Vector3 directionRight = transform.TransformDirection(new Vector3(1, 0f, 0f));
 
-            if(direction.magnitude >= 0.1f)
+            if(direction.magnitude >= 0.1f && canMoveLeft == true && canMoveRight == true)
             {
                 cc.Move(direction.normalized * coverWalkSpeed * Time.deltaTime);
+            }
+            else if(direction.magnitude >= 0.1f && canMoveLeft == false && canMoveRight == true)
+            {
+                cc.Move(directionRight.normalized * coverWalkSpeed * Time.deltaTime);
+            }
+            else if(direction.magnitude >= 0.1f && canMoveLeft == true && canMoveRight == false)
+            {
+                cc.Move(directionLeft.normalized * coverWalkSpeed * Time.deltaTime);
+            }
+
+            RaycastHit leftCoverHit;
+            RaycastHit rightCoverHit;
+            if(!Physics.Raycast(leftCoverDetect.position, leftCoverDetect.forward, out leftCoverHit, coverDetectDistance, coverMask))
+            {
+                Debug.DrawRay(leftCoverDetect.position, leftCoverDetect.forward, Color.blue);
+                canMoveLeft = false;
+            }
+
+            if(Physics.Raycast(leftCoverDetect.position, leftCoverDetect.forward, out leftCoverHit, coverDetectDistance, coverMask))
+            {
+                Debug.DrawRay(leftCoverDetect.position, leftCoverDetect.forward, Color.black);
+                canMoveLeft = true;
+            }
+
+            if(!Physics.Raycast(rightCoverDetect.position, rightCoverDetect.forward, out rightCoverHit, coverDetectDistance, coverMask))
+            {
+                Debug.DrawRay(rightCoverDetect.position, rightCoverDetect.forward, Color.blue);
+                canMoveRight = false;
+            }
+
+            if(Physics.Raycast(rightCoverDetect.position, rightCoverDetect.forward, out rightCoverHit, coverDetectDistance, coverMask))
+            {
+                Debug.DrawRay(rightCoverDetect.position, rightCoverDetect.forward, Color.black);
+                canMoveRight = true;
             }
         }
     }
