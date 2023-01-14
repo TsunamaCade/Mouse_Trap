@@ -246,7 +246,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167083231}
-  m_LocalRotation: {x: 0.15086423, y: -0, z: -0, w: 0.98855454}
+  m_LocalRotation: {x: 0.15086421, y: 0.000000019017136, z: -0.0000000029022227, w: 0.98855454}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -433,8 +433,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 361634263}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 10, y: 1, z: 0}
-  m_LocalScale: {x: 4, y: 2, z: 1}
+  m_LocalPosition: {x: 10, y: 0.75, z: 0}
+  m_LocalScale: {x: 4, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1665990389}
@@ -532,8 +532,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440991534}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -10, y: 1, z: 0}
-  m_LocalScale: {x: 4, y: 2, z: 1}
+  m_LocalPosition: {x: -10, y: 0.75, z: 0}
+  m_LocalScale: {x: 4, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 616733738}
@@ -631,8 +631,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 443546515}
   m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -7.5, y: 1, z: 7.5}
-  m_LocalScale: {x: 4, y: 2, z: 1}
+  m_LocalPosition: {x: -7.5, y: 0.75, z: 7.5}
+  m_LocalScale: {x: 4, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1353264618}
@@ -1162,6 +1162,7 @@ MonoBehaviour:
   cc: {fileID: 709068629}
   cam: {fileID: 963194228}
   damping: 2
+  dampingMove: 10
   walkSpeed: 5
   runSpeed: 8
   turnSmoothTime: 0.15
@@ -2016,7 +2017,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1050916996}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.681, y: 0.878, z: 0.61849976}
+  m_LocalPosition: {x: 0.681, y: 0.61599994, z: 0.61849976}
   m_LocalScale: {x: 15, y: 2.4, z: 2.4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2044,14 +2045,23 @@ MonoBehaviour:
   currentAmmo: 50
   reloadTime: 4
   isReloading: 0
+  spread: 0
   maxSpread: 0.1
+  minSpread: 0.025
   cam: {fileID: 963194228}
   gun: {fileID: 1050916997}
+  rotationPercent: 180
   damping: 1
+  canRotate: 0
+  aimFOV: {fileID: 1118149963}
+  fovNormal: 40
+  fovAiming: 20
+  isAiming: 0
   gunBarrel: {fileID: 1865080053}
   enemyMask:
     serializedVersion: 2
     m_Bits: 8
+  pm: {fileID: 709068631}
 --- !u!114 &1050916999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2170,7 +2180,19 @@ MonoBehaviour:
     m_ActionId: 036eb1bb-334a-4e5b-986d-5d36537770e8
     m_ActionName: Player/ExitCover[/XInputControllerWindows/leftStick/down,/Keyboard/s]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1050916998}
+        m_TargetAssemblyTypeName: PlayerGun, Assembly-CSharp
+        m_MethodName: OnAimDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 13656a21-b68d-44ab-85e2-f0c58bba8ea1
     m_ActionName: Player/Aim[/XInputControllerWindows/leftTrigger,/Mouse/rightButton]
   - m_PersistentCalls:
@@ -2229,8 +2251,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069079533}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
-  m_LocalScale: {x: 4, y: 2, z: 1}
+  m_LocalPosition: {x: 0, y: 0.75, z: -10}
+  m_LocalScale: {x: 4, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1790487385}
@@ -2411,13 +2433,13 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_BindingMode: 4
-  m_SplineCurvature: 0
+  m_SplineCurvature: 1
   m_Orbits:
-  - m_Height: 5.8
+  - m_Height: 3.5
     m_Radius: 5
   - m_Height: 2.5
     m_Radius: 8
-  - m_Height: -0.8
+  - m_Height: -2
     m_Radius: 5
   m_LegacyHeadingBias: 3.4028235e+38
   m_Rigs:
@@ -2542,7 +2564,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1119737635}
-  m_LocalRotation: {x: 0.11485545, y: 0.00000001761856, z: -0.000000002037069, w: 0.9933822}
+  m_LocalRotation: {x: 0.11485545, y: 0.000000017618557, z: -0.0000000020370685, w: 0.9933822}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2800,8 +2822,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285225789}
   m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 7.5, y: 1, z: -7.5}
-  m_LocalScale: {x: 4, y: 2, z: 1}
+  m_LocalPosition: {x: 7.5, y: 0.75, z: -7.5}
+  m_LocalScale: {x: 4, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1042017220}
@@ -2899,8 +2921,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286002821}
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -7.5, y: 1, z: -7.5}
-  m_LocalScale: {x: 4, y: 2, z: 1}
+  m_LocalPosition: {x: -7.5, y: 0.75, z: -7.5}
+  m_LocalScale: {x: 4, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2016954115}
@@ -3149,7 +3171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388030013}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.681, y: 0.878, z: 0.61849976}
+  m_LocalPosition: {x: 0.681, y: 0.616, z: 0.61849976}
   m_LocalScale: {x: 15, y: 2.4, z: 2.4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3178,14 +3200,23 @@ MonoBehaviour:
   currentAmmo: 6
   reloadTime: 4
   isReloading: 0
+  spread: 0
   maxSpread: 0.025
+  minSpread: 0
   cam: {fileID: 963194228}
   gun: {fileID: 1388030014}
+  rotationPercent: 180
   damping: 1
+  canRotate: 0
+  aimFOV: {fileID: 1118149963}
+  fovNormal: 40
+  fovAiming: 20
+  isAiming: 0
   gunBarrel: {fileID: 1170974275}
   enemyMask:
     serializedVersion: 2
     m_Bits: 8
+  pm: {fileID: 709068631}
 --- !u!114 &1388030016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3292,7 +3323,19 @@ MonoBehaviour:
     m_ActionId: 036eb1bb-334a-4e5b-986d-5d36537770e8
     m_ActionName: Player/ExitCover[/XInputControllerWindows/leftStick/down,/Keyboard/s]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1388030015}
+        m_TargetAssemblyTypeName: PlayerGun, Assembly-CSharp
+        m_MethodName: OnAimDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 13656a21-b68d-44ab-85e2-f0c58bba8ea1
     m_ActionName: Player/Aim[/XInputControllerWindows/leftTrigger,/Mouse/rightButton]
   - m_PersistentCalls:
@@ -3363,8 +3406,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1555490758}
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 7.5, y: 1, z: 7.5}
-  m_LocalScale: {x: 4, y: 2, z: 1}
+  m_LocalPosition: {x: 7.5, y: 0.75, z: 7.5}
+  m_LocalScale: {x: 4, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 541768578}
@@ -4314,8 +4357,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2098285104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 10}
-  m_LocalScale: {x: 4, y: 2, z: 1}
+  m_LocalPosition: {x: 0, y: 0.75, z: 10}
+  m_LocalScale: {x: 4, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1947668889}

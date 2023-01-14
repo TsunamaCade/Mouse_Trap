@@ -17,7 +17,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player Control Variables")]
     [SerializeField] public CharacterController cc;
     [SerializeField] private Transform cam;
-    [SerializeField] private float damping = 3f;
+    public float damping;
+    [SerializeField] private float dampingMove;
 
     [SerializeField] private float walkSpeed;
     [SerializeField] public float runSpeed;
@@ -66,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if(covered == false)
+        if(covered == false)        //If player isn't in cover, player can rotate 360 degrees around the y-axiz and can move onmi-directionally
         {
             Vector3 direction = new Vector3(move.x, 0f, move.y);
             Quaternion rotation = Quaternion.AngleAxis(cam.transform.eulerAngles.y, Vector3.up);
@@ -76,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping * 5f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * dampingMove);
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
                 cc.Move(moveDir.normalized * speed * Time.deltaTime);
             }
@@ -86,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if(covered == true)
+        if(covered == true)         //If player IS in cover, player is locked forward, and can only move left and right
         {
             float coverWalkSpeed = 3f;
             Vector3 direction = transform.TransformDirection(new Vector3(move.x, 0f, 0f));
@@ -106,6 +107,8 @@ public class PlayerMovement : MonoBehaviour
                 cc.Move(directionLeft.normalized * coverWalkSpeed * Time.deltaTime);
             }
 
+
+            //These rays detect is the player is near the edge of the cover, and prevents them from moving further in that direction
             RaycastHit leftCoverHit;
             RaycastHit rightCoverHit;
             if(!Physics.Raycast(leftCoverDetect.position, leftCoverDetect.forward, out leftCoverHit, coverDetectDistance, coverMask))
@@ -113,8 +116,7 @@ public class PlayerMovement : MonoBehaviour
                 Debug.DrawRay(leftCoverDetect.position, leftCoverDetect.forward, Color.blue);
                 canMoveLeft = false;
             }
-
-            if(Physics.Raycast(leftCoverDetect.position, leftCoverDetect.forward, out leftCoverHit, coverDetectDistance, coverMask))
+            else
             {
                 Debug.DrawRay(leftCoverDetect.position, leftCoverDetect.forward, Color.black);
                 canMoveLeft = true;
@@ -125,8 +127,7 @@ public class PlayerMovement : MonoBehaviour
                 Debug.DrawRay(rightCoverDetect.position, rightCoverDetect.forward, Color.blue);
                 canMoveRight = false;
             }
-
-            if(Physics.Raycast(rightCoverDetect.position, rightCoverDetect.forward, out rightCoverHit, coverDetectDistance, coverMask))
+            else
             {
                 Debug.DrawRay(rightCoverDetect.position, rightCoverDetect.forward, Color.black);
                 canMoveRight = true;
